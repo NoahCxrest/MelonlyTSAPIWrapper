@@ -1,6 +1,6 @@
 {
   "name": "@melonly-moderation/api-client",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Official TypeScript client for the Melonly API with full type safety and zero dependencies (basically)",
   "keywords": [
     "melonly",
