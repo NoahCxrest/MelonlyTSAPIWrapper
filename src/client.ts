@@ -77,7 +77,7 @@ export class MelonlyClient {
 
     this.http = new HttpClient({
       baseUrl:
-        options.baseUrl ?? "https://pubapitestingalphayes.melonly.xyz/api/v1",
+        options.baseUrl ?? "https://api.melonly.xyz/api/v1",
       token: options.token,
       timeout: options.timeout ?? 30000,
       maxRetries: options.maxRetries ?? 3,
