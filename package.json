@@ -1,6 +1,6 @@
 {
   "name": "@melonly-moderation/api-client",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Official TypeScript client for the Melonly API with full type safety and zero dependencies (basically)",
   "keywords": [
     "melonly",
@@ -13,13 +13,13 @@
   ],
   "author": "Melonly Moderation <admin@melonly.xyz>",
   "license": "MIT",
-  "homepage": "https://github.com/NoahCxrest/MelonlyTSAPIWrapper#readme",
+  "homepage": "https://github.com/Melonly-Moderation/ts-melonly-client#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/NoahCxrest/MelonlyTSAPIWrapper.git"
+    "url": "git+https://github.com/Melonly-Moderation/ts-melonly-client.git"
   },
   "bugs": {
-    "url": "https://github.com/NoahCxrest/MelonlyTSAPIWrapper/issues"
+    "url": "https://github.com/Melonly-Moderation/ts-melonly-client/issues"
   },
   "main": "./dist/index.mjs",
   "module": "./dist/index.mjs",

@@ -1,4 +1,4 @@
-# @melonly/api-client
+# @melonly-moderation/api-client
 
 [![npm version](https://badge.fury.io/js/%40melonly%2Fapi-client.svg)](https://badge.fury.io/js/%40melonly%2Fapi-client)
 [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg)](http://www.typescriptlang.org/)
@@ -21,15 +21,15 @@ Official TypeScript client for the Melonly API with full type safety, zero depen
 ## 📦 Installation
 
 ```bash
-npm install @melonly/api-client
+npm install @melonly-moderation/api-client
 ```
 
 ```bash
-yarn add @melonly/api-client
+yarn add @melonly-moderation/api-client
 ```
 
 ```bash
-pnpm add @melonly/api-client
+pnpm add @melonly-moderation/api-client
 ```
 
 ## 🚀 Quick Start
@@ -178,7 +178,7 @@ import {
   ValidationError,
   isMelonlyError,
   isRateLimitError 
-} from '@melonly/api-client';
+} from '@melonly-moderation/api-client';
 
 try {
   const server = await client.getServerInfo();
