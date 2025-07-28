@@ -3,7 +3,7 @@
 [![npm version](https://badge.fury.io/js/%40melonly%2Fapi-client.svg)](https://badge.fury.io/js/%40melonly%2Fapi-client)
 [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg)](http://www.typescriptlang.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Build Status](https://github.com/NoahCxrest/MelonlyTSAPIWrapper/workflows/CI/badge.svg)](https://github.com/yourusername/melonly-api-client/actions)
+[![Build Status](https://github.com/NoahCxrest/MelonlyTSAPIWrapper/workflows/CI/badge.svg)](https://github.com/NoahCxrest/MelonlyTSAPIWrapper/actions)
 
 Official TypeScript client for the Melonly API with full type safety, zero dependencies, and exceptional developer experience.
 
@@ -301,7 +301,7 @@ npm run test:ui
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/melonly-api-client.git
+git clone https://github.com/NoahCxrest/MelonlyTSAPIWrapper.git
 cd melonly-api-client
 
 # Install dependencies
