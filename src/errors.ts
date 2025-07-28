@@ -2,13 +2,13 @@
  * Base error class for all Melonly API errors
  */
 export class MelonlyError extends Error {
-  public override readonly name: string = 'MelonlyError';
+  public override readonly name: string = "MelonlyError";
   public readonly timestamp = new Date().toISOString();
 
   constructor(
     public readonly status: number,
     message: string,
-    public readonly details?: unknown
+    public readonly details?: unknown,
   ) {
     super(message);
     Object.setPrototypeOf(this, MelonlyError.prototype);
@@ -33,10 +33,13 @@ export class MelonlyError extends Error {
  * Network-related errors (timeouts, connection issues, etc.)
  */
 export class NetworkError extends Error {
-  public override readonly name = 'NetworkError';
+  public override readonly name = "NetworkError";
   public readonly timestamp = new Date().toISOString();
 
-  constructor(message: string, public readonly cause?: Error) {
+  constructor(
+    message: string,
+    public readonly cause?: Error,
+  ) {
     super(message);
     Object.setPrototypeOf(this, NetworkError.prototype);
   }
@@ -56,12 +59,12 @@ export class NetworkError extends Error {
  * Rate limiting errors with retry information
  */
 export class RateLimitError extends MelonlyError {
-  public override readonly name: string = 'RateLimitError';
+  public override readonly name: string = "RateLimitError";
 
   constructor(
     message: string,
     public readonly retryAfterSeconds?: number,
-    public readonly resetTimestamp?: number
+    public readonly resetTimestamp?: number,
   ) {
     super(429, message);
     Object.setPrototypeOf(this, RateLimitError.prototype);
@@ -71,7 +74,9 @@ export class RateLimitError extends MelonlyError {
    * Get the time when the rate limit resets
    */
   get resetDate(): Date | undefined {
-    return this.resetTimestamp ? new Date(this.resetTimestamp * 1000) : undefined;
+    return this.resetTimestamp
+      ? new Date(this.resetTimestamp * 1000)
+      : undefined;
   }
 
   /**
@@ -97,13 +102,13 @@ export class RateLimitError extends MelonlyError {
  * Validation errors for invalid input parameters
  */
 export class ValidationError extends Error {
-  public override readonly name = 'ValidationError';
+  public override readonly name = "ValidationError";
   public readonly timestamp = new Date().toISOString();
 
   constructor(
     message: string,
     public readonly field?: string,
-    public readonly value?: unknown
+    public readonly value?: unknown,
   ) {
     super(message);
     Object.setPrototypeOf(this, ValidationError.prototype);

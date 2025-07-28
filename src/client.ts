@@ -1,24 +1,28 @@
-import { HttpClient } from './http';
+import { HttpClient } from "./http";
 import type {
-    ApplicationAPIResponse,
-    ApplicationListResponse,
-    ApplicationResponseListResponse,
-    AuditLogListResponse,
-    JoinRequestAPIResponse,
-    JoinRequestListResponse,
-    LOAAPIResponse,
-    LOAListResponse,
-    LogAPIResponse,
-    LogListResponse,
-    MemberAPIResponse,
-    MemberListResponse,
-    RoleAPIResponse,
-    RoleListResponse,
-    ServerAPIResponse,
-    ShiftAPIResponse,
-    ShiftListResponse,
-} from './types';
-import { validateId, validatePaginationParams, validateToken } from './utils/validation';
+  ApplicationAPIResponse,
+  ApplicationListResponse,
+  ApplicationResponseListResponse,
+  AuditLogListResponse,
+  JoinRequestAPIResponse,
+  JoinRequestListResponse,
+  LOAAPIResponse,
+  LOAListResponse,
+  LogAPIResponse,
+  LogListResponse,
+  MemberAPIResponse,
+  MemberListResponse,
+  RoleAPIResponse,
+  RoleListResponse,
+  ServerAPIResponse,
+  ShiftAPIResponse,
+  ShiftListResponse,
+} from "./types";
+import {
+  validateId,
+  validatePaginationParams,
+  validateToken,
+} from "./utils/validation";
 
 /**
  * Configuration options for the Melonly client
@@ -51,16 +55,16 @@ export interface PaginationParams {
 
 /**
  * Official Melonly API client with full TypeScript support
- * 
+ *
  * @example
  * ```typescript
  * import { MelonlyClient } from '@melonly/api-client';
- * 
+ *
  * const client = new MelonlyClient({ token: 'your-api-token' });
- * 
+ *
  * // Get server information
  * const serverInfo = await client.getServerInfo();
- * 
+ *
  * // List applications with pagination
  * const applications = await client.getApplications({ page: 1, limit: 20 });
  * ```
@@ -72,7 +76,8 @@ export class MelonlyClient {
     validateToken(options.token);
 
     this.http = new HttpClient({
-      baseUrl: options.baseUrl ?? 'https://pubapitestingalphayes.melonly.xyz/api/v1',
+      baseUrl:
+        options.baseUrl ?? "https://pubapitestingalphayes.melonly.xyz/api/v1",
       token: options.token,
       timeout: options.timeout ?? 30000,
       maxRetries: options.maxRetries ?? 3,
@@ -88,9 +93,11 @@ export class MelonlyClient {
    * @param params - Pagination parameters
    * @returns Promise resolving to application list with pagination info
    */
-  async getApplications(params: PaginationParams = {}): Promise<ApplicationListResponse> {
+  async getApplications(
+    params: PaginationParams = {},
+  ): Promise<ApplicationListResponse> {
     validatePaginationParams(params);
-    return this.http.get('/server/applications', params);
+    return this.http.get("/server/applications", params);
   }
 
   /**
@@ -99,8 +106,10 @@ export class MelonlyClient {
    * @returns Promise resolving to the application data
    */
   async getApplication(applicationId: string): Promise<ApplicationAPIResponse> {
-    validateId(applicationId, 'applicationId');
-    return this.http.get(`/server/applications/${encodeURIComponent(applicationId)}`);
+    validateId(applicationId, "applicationId");
+    return this.http.get(
+      `/server/applications/${encodeURIComponent(applicationId)}`,
+    );
   }
 
   /**
@@ -111,13 +120,13 @@ export class MelonlyClient {
    */
   async getApplicationResponses(
     applicationId: string,
-    params: PaginationParams = {}
+    params: PaginationParams = {},
   ): Promise<ApplicationResponseListResponse> {
-    validateId(applicationId, 'applicationId');
+    validateId(applicationId, "applicationId");
     validatePaginationParams(params);
     return this.http.get(
       `/server/applications/${encodeURIComponent(applicationId)}/responses`,
-      params
+      params,
     );
   }
 
@@ -129,13 +138,13 @@ export class MelonlyClient {
    */
   async getUserApplicationResponses(
     userId: string,
-    params: PaginationParams = {}
+    params: PaginationParams = {},
   ): Promise<ApplicationResponseListResponse> {
-    validateId(userId, 'userId');
+    validateId(userId, "userId");
     validatePaginationParams(params);
     return this.http.get(
       `/server/applications/user/${encodeURIComponent(userId)}/responses`,
-      params
+      params,
     );
   }
 
@@ -146,9 +155,11 @@ export class MelonlyClient {
    * @param params - Pagination parameters
    * @returns Promise resolving to audit logs with pagination info
    */
-  async getAuditLogs(params: PaginationParams = {}): Promise<AuditLogListResponse> {
+  async getAuditLogs(
+    params: PaginationParams = {},
+  ): Promise<AuditLogListResponse> {
     validatePaginationParams(params);
-    return this.http.get('/server/audit-logs', params);
+    return this.http.get("/server/audit-logs", params);
   }
 
   // --- Server Info ---
@@ -158,7 +169,7 @@ export class MelonlyClient {
    * @returns Promise resolving to server information
    */
   async getServerInfo(): Promise<ServerAPIResponse> {
-    return this.http.get('/server/info');
+    return this.http.get("/server/info");
   }
 
   // --- Join Requests ---
@@ -168,9 +179,11 @@ export class MelonlyClient {
    * @param params - Pagination parameters
    * @returns Promise resolving to join requests with pagination info
    */
-  async getJoinRequests(params: PaginationParams = {}): Promise<JoinRequestListResponse> {
+  async getJoinRequests(
+    params: PaginationParams = {},
+  ): Promise<JoinRequestListResponse> {
     validatePaginationParams(params);
-    return this.http.get('/server/join-requests', params);
+    return this.http.get("/server/join-requests", params);
   }
 
   /**
@@ -179,7 +192,7 @@ export class MelonlyClient {
    * @returns Promise resolving to the join request data
    */
   async getJoinRequest(userId: string): Promise<JoinRequestAPIResponse> {
-    validateId(userId, 'userId');
+    validateId(userId, "userId");
     return this.http.get(`/server/join-requests/${encodeURIComponent(userId)}`);
   }
 
@@ -192,7 +205,7 @@ export class MelonlyClient {
    */
   async getLOAs(params: PaginationParams = {}): Promise<LOAListResponse> {
     validatePaginationParams(params);
-    return this.http.get('/server/loas', params);
+    return this.http.get("/server/loas", params);
   }
 
   /**
@@ -201,7 +214,7 @@ export class MelonlyClient {
    * @returns Promise resolving to the LOA data
    */
   async getLOA(loaId: string): Promise<LOAAPIResponse> {
-    validateId(loaId, 'loaId');
+    validateId(loaId, "loaId");
     return this.http.get(`/server/loas/${encodeURIComponent(loaId)}`);
   }
 
@@ -211,10 +224,16 @@ export class MelonlyClient {
    * @param params - Pagination parameters
    * @returns Promise resolving to member's LOAs
    */
-  async getUserLOAs(memberId: string, params: PaginationParams = {}): Promise<LOAListResponse> {
-    validateId(memberId, 'memberId');
+  async getUserLOAs(
+    memberId: string,
+    params: PaginationParams = {},
+  ): Promise<LOAListResponse> {
+    validateId(memberId, "memberId");
     validatePaginationParams(params);
-    return this.http.get(`/server/loas/user/${encodeURIComponent(memberId)}`, params);
+    return this.http.get(
+      `/server/loas/user/${encodeURIComponent(memberId)}`,
+      params,
+    );
   }
 
   // --- Logs ---
@@ -226,7 +245,7 @@ export class MelonlyClient {
    */
   async getLogs(params: PaginationParams = {}): Promise<LogListResponse> {
     validatePaginationParams(params);
-    return this.http.get('/server/logs', params);
+    return this.http.get("/server/logs", params);
   }
 
   /**
@@ -235,7 +254,7 @@ export class MelonlyClient {
    * @returns Promise resolving to the log data
    */
   async getLog(logId: string): Promise<LogAPIResponse> {
-    validateId(logId, 'logId');
+    validateId(logId, "logId");
     return this.http.get(`/server/logs/${encodeURIComponent(logId)}`);
   }
 
@@ -245,10 +264,16 @@ export class MelonlyClient {
    * @param params - Pagination parameters
    * @returns Promise resolving to staff member's logs
    */
-  async getStaffLogs(staffId: string, params: PaginationParams = {}): Promise<LogListResponse> {
-    validateId(staffId, 'staffId');
+  async getStaffLogs(
+    staffId: string,
+    params: PaginationParams = {},
+  ): Promise<LogListResponse> {
+    validateId(staffId, "staffId");
     validatePaginationParams(params);
-    return this.http.get(`/server/logs/staff/${encodeURIComponent(staffId)}`, params);
+    return this.http.get(
+      `/server/logs/staff/${encodeURIComponent(staffId)}`,
+      params,
+    );
   }
 
   /**
@@ -257,12 +282,18 @@ export class MelonlyClient {
    * @param params - Pagination parameters
    * @returns Promise resolving to user's logs
    */
-  async getUserLogs(username: string, params: PaginationParams = {}): Promise<LogListResponse> {
+  async getUserLogs(
+    username: string,
+    params: PaginationParams = {},
+  ): Promise<LogListResponse> {
     if (!username?.trim()) {
-      throw new Error('Username is required and cannot be empty');
+      throw new Error("Username is required and cannot be empty");
     }
     validatePaginationParams(params);
-    return this.http.get(`/server/logs/user/${encodeURIComponent(username)}`, params);
+    return this.http.get(
+      `/server/logs/user/${encodeURIComponent(username)}`,
+      params,
+    );
   }
 
   // --- Members ---
@@ -274,7 +305,7 @@ export class MelonlyClient {
    */
   async getMembers(params: PaginationParams = {}): Promise<MemberListResponse> {
     validatePaginationParams(params);
-    return this.http.get('/server/members', params);
+    return this.http.get("/server/members", params);
   }
 
   /**
@@ -283,7 +314,7 @@ export class MelonlyClient {
    * @returns Promise resolving to the member data
    */
   async getMember(memberId: string): Promise<MemberAPIResponse> {
-    validateId(memberId, 'memberId');
+    validateId(memberId, "memberId");
     return this.http.get(`/server/members/${encodeURIComponent(memberId)}`);
   }
 
@@ -293,8 +324,10 @@ export class MelonlyClient {
    * @returns Promise resolving to the member data
    */
   async getMemberByDiscordId(discordId: string): Promise<MemberAPIResponse> {
-    validateId(discordId, 'discordId');
-    return this.http.get(`/server/members/discord/${encodeURIComponent(discordId)}`);
+    validateId(discordId, "discordId");
+    return this.http.get(
+      `/server/members/discord/${encodeURIComponent(discordId)}`,
+    );
   }
 
   // --- Roles ---
@@ -306,7 +339,7 @@ export class MelonlyClient {
    */
   async getRoles(params: PaginationParams = {}): Promise<RoleListResponse> {
     validatePaginationParams(params);
-    return this.http.get('/server/roles', params);
+    return this.http.get("/server/roles", params);
   }
 
   /**
@@ -315,7 +348,7 @@ export class MelonlyClient {
    * @returns Promise resolving to the role data
    */
   async getRole(roleId: string): Promise<RoleAPIResponse> {
-    validateId(roleId, 'roleId');
+    validateId(roleId, "roleId");
     return this.http.get(`/server/roles/${encodeURIComponent(roleId)}`);
   }
 
@@ -328,7 +361,7 @@ export class MelonlyClient {
    */
   async getShifts(params: PaginationParams = {}): Promise<ShiftListResponse> {
     validatePaginationParams(params);
-    return this.http.get('/server/shifts', params);
+    return this.http.get("/server/shifts", params);
   }
 
   /**
@@ -337,7 +370,7 @@ export class MelonlyClient {
    * @returns Promise resolving to the shift data
    */
   async getShift(shiftId: string): Promise<ShiftAPIResponse> {
-    validateId(shiftId, 'shiftId');
+    validateId(shiftId, "shiftId");
     return this.http.get(`/server/shifts/${encodeURIComponent(shiftId)}`);
   }
 }

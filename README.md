@@ -5,7 +5,6 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Build Status](https://github.com/NoahCxrest/MelonlyTSAPIWrapper/workflows/CI/badge.svg)](https://github.com/NoahCxrest/MelonlyTSAPIWrapper/actions)
 
-
 Official TypeScript client for the Melonly API with type safety and a simple developer experience.
 
 ## ✨ Features
@@ -32,10 +31,10 @@ pnpm add @melonly-moderation/api-client
 ## 🚀 Quick Start
 
 ```typescript
-import { MelonlyClient } from '@melonly-moderation/api-client';
+import { MelonlyClient } from "@melonly-moderation/api-client";
 
 const client = new MelonlyClient({
-  token: 'your-api-token-here'
+  token: "your-api-token-here",
 });
 
 // Example usage
@@ -49,7 +48,7 @@ console.log(serverInfo);
 
 ```typescript
 const client = new MelonlyClient({
-  token: 'your-api-token', // Required
+  token: "your-api-token", // Required
   // baseUrl?: 'https://api.custom', // Optional
   // timeout?: 30000, // Optional
   // headers?: { ... } // Optional
@@ -66,7 +65,7 @@ const server = await client.getServerInfo();
 const apps = await client.getApplications({ page: 1, limit: 10 });
 
 // Get a specific application
-const app = await client.getApplication('application-id');
+const app = await client.getApplication("application-id");
 ```
 
 ## 🔥 Advanced Usage
@@ -83,7 +82,7 @@ MELONLY_API_TOKEN=your-production-token-here
 
 ```typescript
 const client = new MelonlyClient({
-  token: process.env.MELONLY_API_TOKEN!
+  token: process.env.MELONLY_API_TOKEN!,
 });
 ```
 

@@ -1,4 +1,4 @@
-import { MelonlyError, NetworkError, RateLimitError } from './errors';
+import { MelonlyError, NetworkError, RateLimitError } from "./errors";
 
 /**
  * Configuration options for the HTTP client
@@ -16,7 +16,7 @@ export interface HttpClientOptions {
  * HTTP request options
  */
 interface RequestOptions {
-  method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
+  method: "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
   url: string;
   headers?: Record<string, string>;
   body?: unknown;
@@ -35,15 +35,15 @@ export class HttpClient {
   private readonly defaultHeaders: Record<string, string>;
 
   constructor(options: HttpClientOptions) {
-    this.baseUrl = options.baseUrl.replace(/\/$/, ''); // Remove trailing slash
+    this.baseUrl = options.baseUrl.replace(/\/$/, ""); // Remove trailing slash
     this.token = options.token;
     this.timeout = options.timeout ?? 30000;
     this.maxRetries = options.maxRetries ?? 3;
     this.debug = options.debug ?? false;
     this.defaultHeaders = {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      'User-Agent': '@melonly/api-client/1.0.0',
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      "User-Agent": "@melonly/api-client/1.0.0",
       ...options.headers,
     };
   }
@@ -53,7 +53,7 @@ export class HttpClient {
    */
   async get<T>(endpoint: string, params?: Record<string, unknown>): Promise<T> {
     const url = this.buildUrl(endpoint, params);
-    return this.request<T>({ method: 'GET', url });
+    return this.request<T>({ method: "GET", url });
   }
 
   /**
@@ -61,7 +61,7 @@ export class HttpClient {
    */
   async post<T>(endpoint: string, data?: unknown): Promise<T> {
     const url = this.buildUrl(endpoint);
-    return this.request<T>({ method: 'POST', url, body: data });
+    return this.request<T>({ method: "POST", url, body: data });
   }
 
   /**
@@ -69,7 +69,7 @@ export class HttpClient {
    */
   async put<T>(endpoint: string, data?: unknown): Promise<T> {
     const url = this.buildUrl(endpoint);
-    return this.request<T>({ method: 'PUT', url, body: data });
+    return this.request<T>({ method: "PUT", url, body: data });
   }
 
   /**
@@ -77,7 +77,7 @@ export class HttpClient {
    */
   async delete<T>(endpoint: string): Promise<T> {
     const url = this.buildUrl(endpoint);
-    return this.request<T>({ method: 'DELETE', url });
+    return this.request<T>({ method: "DELETE", url });
   }
 
   /**
@@ -85,14 +85,14 @@ export class HttpClient {
    */
   async patch<T>(endpoint: string, data?: unknown): Promise<T> {
     const url = this.buildUrl(endpoint);
-    return this.request<T>({ method: 'PATCH', url, body: data });
+    return this.request<T>({ method: "PATCH", url, body: data });
   }
 
   /**
    * Build URL with query parameters
    */
   private buildUrl(endpoint: string, params?: Record<string, unknown>): string {
-    const cleanEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
+    const cleanEndpoint = endpoint.startsWith("/") ? endpoint : `/${endpoint}`;
     let url = `${this.baseUrl}${cleanEndpoint}`;
 
     if (params && Object.keys(params).length > 0) {
@@ -120,7 +120,9 @@ export class HttpClient {
     for (let attempt = 1; attempt <= this.maxRetries; attempt++) {
       try {
         if (this.debug) {
-          console.log(`[Melonly API] ${options.method} ${options.url} (attempt ${attempt})`);
+          console.log(
+            `[Melonly API] ${options.method} ${options.url} (attempt ${attempt})`,
+          );
         }
 
         const response = await this.performRequest(options);
@@ -143,17 +145,21 @@ export class HttpClient {
         }
 
         // Exponential backoff with jitter
-        const delay = Math.min(1000 * Math.pow(2, attempt - 1), 10000) + Math.random() * 1000;
-        
+        const delay =
+          Math.min(1000 * Math.pow(2, attempt - 1), 10000) +
+          Math.random() * 1000;
+
         if (this.debug) {
           console.log(`[Melonly API] Retrying after ${Math.round(delay)}ms...`);
         }
-        
+
         await this.sleep(delay);
       }
     }
 
-    throw lastError ?? new NetworkError('Request failed after all retry attempts');
+    throw (
+      lastError ?? new NetworkError("Request failed after all retry attempts")
+    );
   }
 
   /**
@@ -166,7 +172,7 @@ export class HttpClient {
     try {
       const headers = {
         ...this.defaultHeaders,
-        'Authorization': `Bearer ${this.token}`,
+        Authorization: `Bearer ${this.token}`,
         ...options.headers,
       };
 
@@ -187,12 +193,14 @@ export class HttpClient {
     } catch (error) {
       clearTimeout(timeoutId);
 
-      if (error instanceof Error && error.name === 'AbortError') {
+      if (error instanceof Error && error.name === "AbortError") {
         throw new NetworkError(`Request timeout after ${this.timeout}ms`);
       }
 
-      if (error instanceof TypeError && error.message.includes('fetch')) {
-        throw new NetworkError('Network request failed - please check your connection');
+      if (error instanceof TypeError && error.message.includes("fetch")) {
+        throw new NetworkError(
+          "Network request failed - please check your connection",
+        );
       }
 
       throw error;
@@ -203,38 +211,40 @@ export class HttpClient {
    * Handle HTTP response and parse JSON
    */
   private async handleResponse<T>(response: Response): Promise<T> {
-    const contentType = response.headers.get('content-type') ?? '';
-    
+    const contentType = response.headers.get("content-type") ?? "";
+
     let responseBody: unknown;
     try {
-      if (contentType.includes('application/json')) {
+      if (contentType.includes("application/json")) {
         responseBody = await response.json();
       } else {
         responseBody = await response.text();
       }
     } catch (parseError) {
-      throw new MelonlyError(
-        response.status,
-        'Failed to parse response body',
-        { originalError: parseError }
-      );
+      throw new MelonlyError(response.status, "Failed to parse response body", {
+        originalError: parseError,
+      });
     }
 
     if (!response.ok) {
       // Handle rate limiting
       if (response.status === 429) {
-        const retryAfter = response.headers.get('retry-after');
-        const resetTime = response.headers.get('x-ratelimit-reset');
+        const retryAfter = response.headers.get("retry-after");
+        const resetTime = response.headers.get("x-ratelimit-reset");
         throw new RateLimitError(
-          'Rate limit exceeded',
+          "Rate limit exceeded",
           retryAfter ? parseInt(retryAfter, 10) : undefined,
-          resetTime ? parseInt(resetTime, 10) : undefined
+          resetTime ? parseInt(resetTime, 10) : undefined,
         );
       }
 
       // Extract error message from response body if available
       let errorMessage = `HTTP ${response.status}: ${response.statusText}`;
-      if (responseBody && typeof responseBody === 'object' && 'error' in responseBody) {
+      if (
+        responseBody &&
+        typeof responseBody === "object" &&
+        "error" in responseBody
+      ) {
         errorMessage = String(responseBody.error);
       }
 
@@ -248,6 +258,6 @@ export class HttpClient {
    * Sleep utility for retry delays
    */
   private sleep(ms: number): Promise<void> {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 }

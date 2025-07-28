@@ -146,7 +146,8 @@ export interface ApplicationAPIResponse {
 /**
  * Paginated list of applications
  */
-export interface ApplicationListResponse extends PaginatedResponse<ApplicationAPIResponse> {}
+export interface ApplicationListResponse
+  extends PaginatedResponse<ApplicationAPIResponse> {}
 
 /**
  * Application response/submission data
@@ -187,7 +188,8 @@ export interface ApplicationResponseAPIResponse {
 /**
  * Paginated list of application responses
  */
-export interface ApplicationResponseListResponse extends PaginatedResponse<ApplicationResponseAPIResponse> {}
+export interface ApplicationResponseListResponse
+  extends PaginatedResponse<ApplicationResponseAPIResponse> {}
 
 // === Audit Log Types ===
 
@@ -214,7 +216,8 @@ export interface AuditLogEventAPIResponse {
 /**
  * Paginated list of audit log events
  */
-export interface AuditLogListResponse extends PaginatedResponse<AuditLogEventAPIResponse> {}
+export interface AuditLogListResponse
+  extends PaginatedResponse<AuditLogEventAPIResponse> {}
 
 // === Join Request Types ===
 
@@ -235,7 +238,8 @@ export interface JoinRequestAPIResponse {
 /**
  * Paginated list of join requests
  */
-export interface JoinRequestListResponse extends PaginatedResponse<JoinRequestAPIResponse> {}
+export interface JoinRequestListResponse
+  extends PaginatedResponse<JoinRequestAPIResponse> {}
 
 // === LOA (Leave of Absence) Types ===
 
@@ -360,7 +364,8 @@ export interface MemberAPIResponse {
 /**
  * Paginated list of members
  */
-export interface MemberListResponse extends PaginatedResponse<MemberAPIResponse> {}
+export interface MemberListResponse
+  extends PaginatedResponse<MemberAPIResponse> {}
 
 // === Role Types ===
 
@@ -444,7 +449,8 @@ export interface ShiftAPIResponse {
 /**
  * Paginated list of shifts
  */
-export interface ShiftListResponse extends PaginatedResponse<ShiftAPIResponse> {}
+export interface ShiftListResponse
+  extends PaginatedResponse<ShiftAPIResponse> {}
 
 // === Utility Types ===
 
