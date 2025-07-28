@@ -1,0 +1,98 @@
+{
+  "name": "@melonly-moderation/api-client",
+  "version": "1.0.0",
+  "description": "Official TypeScript client for the Melonly API with full type safety and zero dependencies (basically)",
+  "keywords": [
+    "melonly",
+    "api",
+    "client",
+    "typescript",
+    "discord",
+    "server-management",
+    "moderation"
+  ],
+  "author": "Your Name <your.email@example.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/yourusername/melonly-api-client#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yourusername/melonly-api-client.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/melonly-api-client/issues"
+  },
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "scripts": {
+    "build": "tsup",
+    "build:watch": "tsup --watch",
+    "dev": "tsup --watch",
+    "test": "vitest",
+    "test:watch": "vitest --watch",
+    "test:coverage": "vitest --coverage",
+    "test:ui": "vitest --ui",
+    "lint": "eslint src --ext .ts,.tsx --report-unused-disable-directives --max-warnings 0",
+    "lint:fix": "eslint src --ext .ts,.tsx --fix",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "docs": "typedoc",
+    "docs:serve": "typedoc --watch",
+    "prepublishOnly": "npm run build && npm run test && npm run lint && npm run typecheck",
+    "release": "changeset publish",
+    "version": "changeset version",
+    "clean": "rimraf dist",
+    "size": "size-limit"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.27.1",
+    "@size-limit/preset-small-lib": "^11.0.2",
+    "@types/node": "^20.11.17",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
+    "@vitest/coverage-v8": "^1.2.2",
+    "@vitest/ui": "^1.2.2",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^9.1.2",
+    "eslint-plugin-import": "^2.32.0",
+    "prettier": "^3.2.5",
+    "rimraf": "^5.0.5",
+    "size-limit": "^11.0.2",
+    "tsup": "^8.0.2",
+    "typedoc": "^0.25.8",
+    "typescript": "^5.3.3",
+    "vitest": "^1.2.2"
+  },
+  "size-limit": [
+    {
+      "path": "dist/index.js",
+      "limit": "10 KB"
+    },
+    {
+      "path": "dist/index.mjs",
+      "limit": "10 KB"
+    }
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "type": "module"
+}
