@@ -1,4 +1,4 @@
-# @melonly-moderation/api-client
+# @melonly-moderation/ts-melonly-client
 
 [![npm version](https://badge.fury.io/js/%40melonly%2Fapi-client.svg)](https://badge.fury.io/js/%40melonly%2Fapi-client)
 [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg)](http://www.typescriptlang.org/)
@@ -17,24 +17,24 @@ Official TypeScript client for the Melonly API with type safety and a simple dev
 ## 📦 Installation
 
 ```bash
-npm install @melonly-moderation/api-client
+npm install @melonly-moderation/ts-melonly-client
 ```
 
 ```bash
-yarn add @melonly-moderation/api-client
+yarn add @melonly-moderation/ts-melonly-client
 ```
 
 ```bash
-pnpm add @melonly-moderation/api-client
+pnpm add @melonly-moderation/ts-melonly-client
 ```
 
 ## 🚀 Quick Start
 
 ```typescript
-import { MelonlyClient } from "@melonly-moderation/api-client";
+import { MelonlyClient } from '@melonly-moderation/ts-melonly-client';
 
 const client = new MelonlyClient({
-  token: "your-api-token-here",
+  token: 'your-api-token-here',
 });
 
 // Example usage
@@ -48,7 +48,7 @@ console.log(serverInfo);
 
 ```typescript
 const client = new MelonlyClient({
-  token: "your-api-token", // Required
+  token: 'your-api-token', // Required
   // baseUrl?: 'https://api.custom', // Optional
   // timeout?: 30000, // Optional
   // headers?: { ... } // Optional
@@ -65,7 +65,7 @@ const server = await client.getServerInfo();
 const apps = await client.getApplications({ page: 1, limit: 10 });
 
 // Get a specific application
-const app = await client.getApplication("application-id");
+const app = await client.getApplication('application-id');
 ```
 
 ## 🔥 Advanced Usage
@@ -97,8 +97,8 @@ npm test
 
 ```bash
 # Clone the repository
-git clone https://github.com/NoahCxrest/MelonlyTSAPIWrapper.git
-cd MelonlyTSAPIWrapper
+git clone https://github.com/Melonly-Moderation/ts-melonly-client.git
+cd ts-melonly-client
 
 # Install dependencies
 npm install
@@ -107,9 +107,19 @@ npm install
 npm run build
 ```
 
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 💬 Support
+
+- Documentation: [https://melonly-api.readthedocs.io/](https://melonly-api.readthedocs.io/)
+- Issues: [https://github.com/Melonly-Moderation/ts-melonly-client/issues](https://github.com/ts-melonly-client/ts-melonly-client/issues)
+- Melonly API Documentation: [https://api.melonly.xyz/docs](https://api.melonly.xyz/docs)
 
 ---
 
