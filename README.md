@@ -97,8 +97,8 @@ npm test
 
 ```bash
 # Clone the repository
-git clone https://github.com/NoahCxrest/MelonlyTSAPIWrapper.git
-cd MelonlyTSAPIWrapper
+git clone https://github.com/Melonly-Moderation/ts-melonly-client.git
+cd ts-melonly-client
 
 # Install dependencies
 npm install
